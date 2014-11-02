@@ -2,11 +2,10 @@
 var fs = require('fs');
 
 module.exports =  function(req, res, next) {
-
-		console.log(req.query);
+		
+		var filepath = __dirname + "/../files/" + req.query.filename;
 		res.writeHead(200);
-		console.log(req.headers);
-		var destinationFile = fs.createWriteStream(__dirname + "/../files/" + req.query.filename);
+		var destinationFile = fs.createWriteStream(filepath);
 		req.pipe(destinationFile);
 		 
 		var fileSize = req.headers['content-length'];
@@ -21,7 +20,11 @@ module.exports =  function(req, res, next) {
 		 
 		req.on('end',function() {
 			res.end("File Upload Complete");
-		}); 
+		});
+		
 		//console.log(req.files);
-	
+		
+		/* var buffer = new Buffer(this.data);
+		fs.writeFileSync(filepath, buffer);
+ */	
 	}
