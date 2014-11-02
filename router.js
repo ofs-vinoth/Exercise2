@@ -1,7 +1,8 @@
-var index = require('./routes/index');
-var users = require('./routes/users');
+var fileupload = require('./rest/fileupload');
+var multipart = require('connect-multiparty');
+//var multipartMiddleware = multipart();
 
 module.exports = function(app) {
-	app.use('/', index);
-	app.use('/users', users);
+	//app.post("/rest/fileupload",  multipartMiddleware, fileupload);
+	app.post("/rest/fileupload", fileupload);
 }
